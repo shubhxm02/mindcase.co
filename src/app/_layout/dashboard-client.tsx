@@ -32,7 +32,7 @@ const Main = styled('main')<{ open?: boolean; lgUp?: boolean }>(({ theme, open, 
 }));
 
 
-export const DashboardClient = ({ session, children }: { session: Session | null, children: React.ReactNode }) => {
+export const DashboardClient = ({ session, children }: { session: null, children: React.ReactNode }) => {
 
   const [isSidebarOpen, setSidebarOpen] = useState<boolean>(true);
 
@@ -40,8 +40,8 @@ export const DashboardClient = ({ session, children }: { session: Session | null
 
   return (
     <Box sx={{ display: "flex", height: "100%", overflowY: "clip" }} >
-      <DashboardNavbar setSidebarOpen={() => setSidebarOpen(!isSidebarOpen)} session={session} />
-      <DashboardSidebar onClose={() => setSidebarOpen(false)} open={isSidebarOpen} session={session} />
+      <DashboardNavbar setSidebarOpen={() => setSidebarOpen(!isSidebarOpen)} />
+      <DashboardSidebar onClose={() => setSidebarOpen(false)} open={isSidebarOpen} />
       <Main open={isSidebarOpen} lgUp={lgUp}>
         <Toolbar />
         {children}
