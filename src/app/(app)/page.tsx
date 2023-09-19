@@ -21,11 +21,15 @@ const Theme = () => (
 export default function Home() {
   return (
     <Box component="main">
-      <Container maxWidth="lg">
-        <Typography variant="h4">Mindcase</Typography>
-        <Theme />
-        <Theme />
-      </Container>
-    </Box>
+      <Container maxWidth="lg" sx={{ display: 'flex', width: 'full', justifyContent: 'center' }}>
+        <Box sx={{ mt: 8, display: 'flex', flexDirection: 'column', textAlign: 'center', alignItems: 'center', color: 'white', maxWidth: '500px' }}>
+          <Image className="py-4" src="/mindcase.png" alt="Mindcase" width={120} height={120} />
+          <Typography variant="h3" sx={{ color: "white" }}>Redefining</Typography>
+          <Typography variant="h2" sx={{ color: "primary.light" }}>Legal Industry</Typography>
+          <Typography variant="h4" sx={{ my: 4 }} paragraph={true}>Experience the power of AI with deep legal expertise and intelligent workflows.</Typography>
+          <Button variant="contained" href="/c" sx={{ width: 'auto', my: 2 }}>Start chatting now!</Button>
+        </Box>
+      </Container >
+    </Box >
   );
 };
