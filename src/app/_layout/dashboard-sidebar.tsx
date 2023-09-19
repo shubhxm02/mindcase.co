@@ -1,21 +1,43 @@
+import { useEffect, useState } from "react";
+
 import { ChatBubbleOutline, OpenInNew, Add } from "@mui/icons-material";
 import { Box, Button, Divider, Drawer, Toolbar, Typography, useMediaQuery } from "@mui/material";
 
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+
+import { Conversations } from "@/utils/types";
+
 import { NavHead, NavItem } from "./nav-item";
 
-const conversations = [
-  {
-    href: "/c/111",
-    icon: <ChatBubbleOutline fontSize="small" />,
-    title: "ChatBubbleOutline 1",
-  },
-];
 
 const drawerWidth = 280;
 
-export const DashboardSidebar = ({ open, onClose }: { open: boolean, onClose: () => void }) => {
+export const DashboardSidebar = (
+  { open, onClose }:
+    { open: boolean, onClose: () => void }
+) => {
 
   const lgUp = useMediaQuery((theme: any) => theme.breakpoints.up("md"), { defaultMatches: true, });
+
+  const [conversations, setConversations] = useState<Conversations[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  const supabase = createClientComponentClient();
+
+  const fetcher = async () => {
+    const { data, error } = await supabase.from("Conversations").select("*").order("created_at", { ascending: false });
+    if (error) {
+      console.log(error);
+    } else {
+      setConversations(data);
+    }
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetcher();
+    console.log(conversations)
+  }, []);
 
   const content = (
     <>
@@ -27,8 +49,15 @@ export const DashboardSidebar = ({ open, onClose }: { open: boolean, onClose: ()
           <NavItem key={'newChat'} icon={<Add fontSize="small" />} href={'/c'} title={'New Chat'} onClose={onClose} />
           {/* Conversations List */}
           <NavHead key="Recents" title="Recents" />
-          {conversations.map((item) => (
-            <NavItem key={item.title} icon={item.icon} href={item.href} title={item.title} onClose={onClose} />
+          {loading && <NavHead key="Loading" title="  Loading..." />}
+          {!loading && conversations && conversations.map((item) => (
+            <NavItem
+              key={item.id}
+              icon={<ChatBubbleOutline fontSize="small" />}
+              href={item.id}
+              title={item.title}
+              onClose={onClose}
+            />
           ))}
         </Box>
         {/* Conversations end */}
