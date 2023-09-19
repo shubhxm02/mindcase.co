@@ -3,11 +3,13 @@ import Link from "next/link";
 import Image from "next/image";
 
 import MenuIcon from "@mui/icons-material/Menu";
-import { AppBar, Box, Button, IconButton, Toolbar, Typography } from "@mui/material";
+import { AppBar, Avatar, Box, Button, IconButton, Toolbar, Typography } from "@mui/material";
+
+import { Session } from "@supabase/supabase-js";
 
 
 export const DashboardNavbar = (
-  { setSidebarOpen }: { setSidebarOpen: () => void }
+  { session, setSidebarOpen }: { session: Session | null, setSidebarOpen: () => void }
 ) => {
   return (
     <>
@@ -16,20 +18,24 @@ export const DashboardNavbar = (
           <IconButton onClick={setSidebarOpen} sx={{ display: "inline-flex" }}>
             <MenuIcon fontSize="small" />
           </IconButton>
-          <IconButton sx={{ px: 2 }} href="/">
-            <Image src={"/mindcase.png"} alt="logo" height={"40"} width={"40"} />
-          </IconButton>
-          <Typography variant="h4">Mindcase</Typography>
+          <Link href="/" passHref>
+            <IconButton sx={{ px: 2 }}>
+              <Image src={"/mindcase.png"} alt="logo" height={"40"} width={"40"} />
+            </IconButton>
+          </Link>
+          <Link href="/" passHref>
+            <Typography variant="h4">Mindcase</Typography>
+          </Link>
           {/* Space */}
           <Box sx={{ flexGrow: 1 }} />
           {/* Space */}
           <Button>
             <Link href="/account" passHref>
-              {/* {session ? (
+              {session ? (
                 <Avatar sx={{ height: 40, width: 40 }} srcSet={session.user?.user_metadata.avatar_url} />
               ) : (
                 <Avatar sx={{ height: 40, width: 40 }} />
-              )} */}
+              )}
             </Link>
           </Button>
         </Toolbar>

@@ -1,4 +1,4 @@
-import { Chat, OpenInNew } from "@mui/icons-material";
+import { ChatBubbleOutline, OpenInNew, Add } from "@mui/icons-material";
 import { Box, Button, Divider, Drawer, Toolbar, Typography, useMediaQuery } from "@mui/material";
 
 import { NavHead, NavItem } from "./nav-item";
@@ -6,8 +6,8 @@ import { NavHead, NavItem } from "./nav-item";
 const conversations = [
   {
     href: "/c/111",
-    icon: <Chat fontSize="small" />,
-    title: "Chat 1",
+    icon: <ChatBubbleOutline fontSize="small" />,
+    title: "ChatBubbleOutline 1",
   },
 ];
 
@@ -19,17 +19,21 @@ export const DashboardSidebar = ({ open, onClose }: { open: boolean, onClose: ()
 
   const content = (
     <>
-      <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
+      <Box sx={{ display: "flex", flexDirection: "column", height: "100%", overflow: 'clip' }}>
         {/* <Divider /> */}
-        <Box sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, mb: 4 }}>
-          <Box>
-            <NavHead key="CHATS" title="CHATS" />
-            {conversations.map((item) => (
-              <NavItem key={item.title} icon={item.icon} href={item.href} title={item.title} onClose={onClose} />
-            ))}
-          </Box>
+        {/* Converstaions start */}
+        <Box sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, py: 2, overflowY: "auto" }}>
+          {/* New chat */}
+          <NavItem key={'newChat'} icon={<Add fontSize="small" />} href={'/c'} title={'New Chat'} onClose={onClose} />
+          {/* Conversations List */}
+          <NavHead key="Recents" title="Recents" />
+          {conversations.map((item) => (
+            <NavItem key={item.title} icon={item.icon} href={item.href} title={item.title} onClose={onClose} />
+          ))}
         </Box>
+        {/* Conversations end */}
         <Divider />
+        {/* Bottom Nav */}
         <Box sx={{ px: 2, py: 3 }}>
           <Typography variant="subtitle1">Need help?</Typography>
           <Typography color={"neutral.400"} variant="body2">
@@ -54,7 +58,7 @@ export const DashboardSidebar = ({ open, onClose }: { open: boolean, onClose: ()
         sx: {
           flexShrink: 0,
           backgroundColor: "primary.main",
-          color: "#FFFFFF",
+          color: "white",
           width: drawerWidth,
           border: "none",
         },

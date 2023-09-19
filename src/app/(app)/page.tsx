@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 import { Box, Button, Container, Typography } from "@mui/material";
+import Link from "next/link";
 
 const Theme = () => (
   <Box sx={{ mt: 8 }}>
@@ -27,7 +28,7 @@ export default function Home() {
           <Typography variant="h3" sx={{ color: "white" }}>Redefining</Typography>
           <Typography variant="h2" sx={{ color: "primary.light" }}>Legal Industry</Typography>
           <Typography variant="h4" sx={{ my: 4 }} paragraph={true}>Experience the power of AI with deep legal expertise and intelligent workflows.</Typography>
-          <Button variant="contained" href="/c" sx={{ width: 'auto', my: 2 }}>Start chatting now!</Button>
+          <Link href={"/c"} passHref><Button variant="contained" sx={{ width: 'auto', my: 2 }}>Start chatting now!</Button></Link>
         </Box>
       </Container >
     </Box >

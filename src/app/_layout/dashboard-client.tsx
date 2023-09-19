@@ -6,6 +6,7 @@ import { Box, Toolbar, styled, useMediaQuery } from "@mui/material";
 
 import { DashboardNavbar } from "./dashboard-navbar";
 import { DashboardSidebar } from "./dashboard-sidebar";
+import { Session } from "@supabase/supabase-js";
 
 const drawerWidth = 280;
 
@@ -32,7 +33,7 @@ const Main = styled('main')<{ open?: boolean; lgUp?: boolean }>(({ theme, open, 
 }));
 
 
-export const DashboardClient = ({ session, children }: { session: null, children: React.ReactNode }) => {
+export const DashboardClient = ({ session, children }: { session: Session | null, children: React.ReactNode }) => {
 
   const [isSidebarOpen, setSidebarOpen] = useState<boolean>(true);
 
@@ -40,7 +41,7 @@ export const DashboardClient = ({ session, children }: { session: null, children
 
   return (
     <Box sx={{ display: "flex", height: "100%", overflowY: "clip" }} >
-      <DashboardNavbar setSidebarOpen={() => setSidebarOpen(!isSidebarOpen)} />
+      <DashboardNavbar setSidebarOpen={() => setSidebarOpen(!isSidebarOpen)} session={session} />
       <DashboardSidebar onClose={() => setSidebarOpen(false)} open={isSidebarOpen} />
       <Main open={isSidebarOpen} lgUp={lgUp}>
         <Toolbar />

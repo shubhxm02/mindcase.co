@@ -1,14 +1,12 @@
 import React from "react";
-import { Box } from "@mui/material";
 
-// import { getSession } from "@/utils/supabase-server";
+import { getSession } from "@/utils/supabase-server";
 
 import { DashboardClient } from "./dashboard-client";
 
-export default function DashboardLayout({ children }: { children: React.ReactNode }): React.JSX.Element {
+export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
 
-  const session = null;
-  // const session = await getSession();
+  const session = await getSession();
 
   return (
     <>
