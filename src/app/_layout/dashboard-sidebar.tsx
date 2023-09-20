@@ -36,7 +36,6 @@ export const DashboardSidebar = (
 
   useEffect(() => {
     fetcher();
-    console.log(conversations)
   }, []);
 
   const content = (

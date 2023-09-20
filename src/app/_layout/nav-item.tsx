@@ -24,7 +24,7 @@ export const NavItem = (props: { href: string; icon: any; title: string; onClose
           disableRipple
           // onClick={onClose}
           sx={{
-            backgroundColor: active ? "secondary" : {},
+            backgroundColor: active ? "secondary.main" : {},
             borderRadius: 1,
             color: "white",
             fontWeight: active ? "fontWeightBold" : {},
