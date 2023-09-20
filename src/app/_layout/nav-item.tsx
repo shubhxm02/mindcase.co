@@ -22,7 +22,6 @@ export const NavItem = (props: { href: string; icon: any; title: string; onClose
           component="div"
           startIcon={icon}
           disableRipple
-          // onClick={onClose}
           sx={{
             backgroundColor: active ? "secondary.main" : {},
             borderRadius: 1,
@@ -31,14 +30,15 @@ export const NavItem = (props: { href: string; icon: any; title: string; onClose
             justifyContent: "flex-start",
             px: 2,
             textAlign: "left",
-            textTransform: "none",
             width: "100%",
             "&:hover": {
               backgroundColor: "secondary.main",
             },
           }}
         >
-          <Box sx={{ flexGrow: 1 }}>{title}</Box>
+          <Box sx={{ overflow: 'hidden', whiteSpace: "nowrap", textOverflow: 'ellipsis' }}>
+            {title}
+          </Box>
         </Button>
       </ListItem>
     </Link>
