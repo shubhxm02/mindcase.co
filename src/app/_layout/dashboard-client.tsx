@@ -11,9 +11,11 @@ import { Session } from "@supabase/supabase-js";
 const drawerWidth = 280;
 
 const Main = styled('main')<{ open?: boolean; lgUp?: boolean }>(({ theme, open, lgUp }) => ({
-  flexGrow: 1,
-  padding: theme.spacing(3),
+  display: 'flex',
+  flexDirection: 'column',
   overflow: 'hidden',
+  width: '100%',
+  height: '100%',
   transition: theme.transitions.create('margin', {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
@@ -40,12 +42,12 @@ export const DashboardClient = ({ session, children }: { session: Session | null
   const lgUp = useMediaQuery((theme: any) => theme.breakpoints.up("md"), { defaultMatches: true, });
 
   return (
-    <Box sx={{ display: "flex", height: "100%", overflowY: "clip" }} >
+    <Box sx={{ display: "flex", height: "100%", width: "100%", overflowY: "clip" }} >
       <DashboardNavbar setSidebarOpen={() => setSidebarOpen(!isSidebarOpen)} session={session} />
       <DashboardSidebar onClose={() => setSidebarOpen(false)} open={isSidebarOpen} />
       <Main open={isSidebarOpen} lgUp={lgUp}>
         <Toolbar />
-        {children}
+        <Box sx={{ position: 'relative', overflow: 'hidden', height: '100%', width: '100%' }}>{children}</Box>
       </Main>
     </Box >
   )
