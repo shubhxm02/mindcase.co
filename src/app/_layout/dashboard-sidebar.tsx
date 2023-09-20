@@ -54,7 +54,7 @@ export const DashboardSidebar = (
             <NavItem
               key={item.id}
               icon={<ChatBubbleOutline fontSize="small" />}
-              href={item.id}
+              href={'/c/' + item.id}
               title={item.title}
               onClose={onClose}
             />
