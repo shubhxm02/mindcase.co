@@ -4,10 +4,10 @@ import { Database } from "@/utils/database.types";
 import { Send } from "@mui/icons-material";
 import { Box, Button, InputAdornment, TextField } from "@mui/material";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export const TextArea = () => {
+export const TextArea = ({ conv_id }: { conv_id: string }) => {
 
   const supabase = createClientComponentClient<Database>();
 
@@ -16,14 +16,39 @@ export const TextArea = () => {
   const router = useRouter();
 
   const sendMessage = async () => {
-    const { data, error } = await supabase.from("Messages").insert({ query: text });
+
+    const createConv = async () => {
+      await supabase
+        .from("Conversations")
+        .insert({ title: "New Chat" })
+      const { data } = await supabase
+        .from("Conversations")
+        .select("id")
+        .order("created_at", { ascending: false })
+        .limit(1);
+      const conv_id = data ? data[0].id : null;
+      console.log(conv_id);
+      return conv_id;
+    }
+
+    const conv = (conv_id === "") ? await createConv() : conv_id;
+
+    const { data, error } = await supabase
+      .from("Messages")
+      .insert({
+        query: text,
+        conversation_id: conv,
+      });
     if (error) {
       console.log(error);
     } else {
       setText("");
       console.log(data);
+      if (conv_id === "")
+        router.replace('/c/' + conv);
       router.refresh();
     }
+
   }
 
   return (

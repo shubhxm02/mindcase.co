@@ -21,12 +21,15 @@ const MessageBox = ({ text, res, session }: { text: string, res: boolean, sessio
 
 }
 
-export const Messages = async () => {
+export const Messages = async ({ conv_id }: { conv_id: string }) => {
 
   const supabase = createServerSupabaseClient();
 
   const fetcher = async () => {
-    const { data, error } = await supabase.from("Messages").select("*").order("created_at", { ascending: true });
+    const { data, error } = await supabase
+      .from("Messages")
+      .select("*").eq("conversation_id", conv_id)
+      .order("created_at", { ascending: true });
     if (error) {
       console.log(error);
     } else {
@@ -55,7 +58,6 @@ export const Messages = async () => {
           <>
             <MessageBox text={message.query} res={false} session={session} />
             <MessageBox text={message.response} res={true} session={session} />
-            {/* <Typography sx={{ backgroundColor: "background.default" }} variant="body1">{message.response}</Typography> */}
           </>
         )) : null}
         <Box sx={{ p: 10, backgroundColor: "secondary.main" }} />
