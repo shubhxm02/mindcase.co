@@ -62,6 +62,11 @@ export const TextArea = ({ conv_id }: { conv_id: string }) => {
             multiline
             maxRows={4}
             sx={{ backgroundColor: "background.default" }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                sendMessage();
+              }
+            }}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
